@@ -1,0 +1,22 @@
+
+body {
+  background-color: #000;
+  color: #00ff66;
+  font-family: "Courier New", monospace;
+  margin: 20px;
+}
+h2 { color: #00ff66; }
+input, button {
+  background: black;
+  border: 1px solid #00ff66;
+  color: #00ff66;
+  font-family: "Courier New", monospace;
+  padding: 5px;
+  margin: 5px;
+}
+.terminal { width: 80%; margin: auto; padding: 20px; text-align: left; }
+.blink { animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+#output { white-space: pre-wrap; }
+.glitch { color: #00ff66; text-shadow: 0 0 2px #00ff66,0 0 5px #00ff66; animation: flicker 2s infinite; }
+@keyframes flicker { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>СЭР Архив</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .terminal {
+      border: 1px solid #00ff00;
+      padding: 20px;
+      border-radius: 5px;
+      max-width: 500px;
+      width: 100%;
+    }
+    input, button {
+      background: #000;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      font-family: 'Courier New', monospace;
+    }
+    button:hover {
+      background: #003300;
+      cursor: pointer;
+    }
+    .typing-text {
+      border-right: 2px solid #00ff00;
+      animation: blink 1s infinite;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    @keyframes blink {
+      0%, 100% { border-color: #00ff00; }
+      50% { border-color: transparent; }
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <p id="systemText"></p>
+    <div id="loginForm" style="display:none;">
+      <input type="text" id="login" placeholder="LOGIN"><br>
+      <input type="password" id="password" placeholder="PASSWORD"><br>
+      <button onclick="checkLogin()">ВОЙТИ</button>
+    </div>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    // Функция печати текста с эффектом печатающей машинки
+    function typeWriter(element, text, speed, callback) {
+      let i = 0;
+      element.innerHTML = '';
+      const timer = setInterval(() => {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(timer);
+          if (callback) callback();
+        }
+      }, speed);
+    }
+
+    // Запуск последовательности сообщений
+    const systemText = document.getElementById('systemText');
+    const messages = [
+      "Инициализация СЭР...",
+      "Система Архивного Разума загружена",
+      "Введите логин и пароль для доступа..."
+    ];
+
+    let currentMessage = 0;
+    function showNextMessage() {
+      if (currentMessage < messages.length) {
+        typeWriter(systemText, messages[currentMessage], 50, () => {
+          setTimeout(() => {
+            currentMessage++;
+            if (currentMessage === messages.length) {
+              document.getElementById('loginForm').style.display = 'block';
+            } else {
+              showNextMessage();
+            }
+          }, 500);
+        });
+      }
+    }
+
+    // Начало загрузки
+    setTimeout(showNextMessage, 1000);
+
+    function checkLogin() {
+      const login = document.getElementById("login").value;
+      const password = document.getElementById("password").value;
+      const msg = document.getElementById("message");
+
+      typeWriter(msg, "Проверка учетных данных...", 30, () => {
+        setTimeout(() => {
+          if (login === "user" && password === "123Qwe") {
+            typeWriter(msg, "✓ ACCESS GRANTED", 30, () => {
+              setTimeout(() => {
+                typeWriter(msg, "Перенаправление на навигационный узел...", 30, () => {
+                  setTimeout(() => { window.location.href = "nav_2.html"; }, 1000);
+                });
+              }, 500);
+            });
+          } 
+          else
+               if (login === "Астаэон" && password === "Ксирос_дар") {
+            typeWriter(msg, "✓ ACCESS GRANTED", 30, () => {
+              setTimeout(() => {
+                typeWriter(msg, "Перенаправление на навигационный узел...", 30, () => {
+                  setTimeout(() => { window.location.href = "nav_3.html"; }, 1000);
+                });
+              }, 500);
+            });
+          } 
+
+          else {
+            typeWriter(msg, "✗ ACCESS DENIED", 30);
+          }
+        }, 500);
+      });
+    }
+
+    // Быстрый вход по Enter
+    document.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') checkLogin();
+    });
+  </script>
+</body>
+</html>

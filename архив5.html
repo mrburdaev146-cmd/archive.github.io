@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Архив СЭР — Фрагмент #5</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.4;
+    }
+    .archive-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #00ff00;
+      border-radius: 5px;
+      position: relative;
+    }
+    .back-button {
+      margin: 10px 0 20px 0;
+      padding: 8px 15px;
+      border: 1px solid #00ff00;
+      cursor: pointer;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+    .back-button:hover {
+      background-color: #003300;
+      padding-left: 20px;
+    }
+    h2 {
+      border-bottom: 1px solid #00ff00;
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+    #output {
+      white-space: pre-wrap;
+      min-height: 200px;
+      border-left: 2px solid #00ff00;
+      padding-left: 15px;
+      margin-top: 20px;
+    }
+    .cursor {
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .photos {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .photo-item {
+      text-align: center;
+    }
+    .photo-item img {
+      max-width: 100%;
+      border: 1px solid #00ff00;
+      border-radius: 5px;
+    }
+    .photo-caption {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #00ff00;
+    }
+  </style>
+</head>
+<body>
+  <div class="archive-container">
+    <div class="back-button" onclick="returnToNavigation()">◀ НАЗАД К НАВИГАЦИИ</div>
+    
+    <h2>📂 Архив СЭР — Фрагмент #5</h2>
+    
+    <div id="output"></div>
+    
+    <!-- Фото появятся после печати -->
+    <div class="photos" id="photos" style="display: none;">
+      <div class="photo-item">
+        <img src="1.jpg" alt="Узел A1">
+        <div class="photo-caption">Узел A1 — Центральный концентратор</div>
+      </div>
+      <div class="photo-item">
+        <img src="2.jpg" alt="Узел B7">
+        <div class="photo-caption">Узел B7 — Южный кластер</div>
+      </div>
+      <div class="photo-item">
+        <img src="3.jpg" alt="Узел C3">
+        <div class="photo-caption">Узел C3 — Северный энергетический узел</div>
+      </div>
+      <div class="photo-item">
+        <img src="4.jpg" alt="Узел D9">
+        <div class="photo-caption">Узел D9 — Повреждённый сектор</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const text = `[ФРАГМЕНТ 5 — КООРДИНАТЫ УЗЛОВ СЭР]
+Идентификатор документа: SIR-ARCH-V5  
+Дата архивирования: 3741 г. по календарю Аэтрионов  
+Класс доступа: TOP SECRET / АРХИВНЫЙ
+
+--- НАЧАЛО ЗАПИСИ ---
+
+СЭР распределён по планете с целью сдерживания Аномалии.  
+Каждый узел представляет собой концентратор энергетических потоков,  
+способный стабилизировать локальное пространство. При выведении из строя одного из узлов, его нагрузка автоматически перераспределяется на рабочие узлы.
+
+Ниже приведены координаты активных узлов (в системе глобальных сетевых точек):
+
+  1. Узел А1 — 124.57°E, -3.14°N  
+     Состояние: ONLINE  
+     Погрешность синхронизации: ±0.03
+
+  2. Узел B7 — 67.21°W, 12.11°S  
+     Состояние: ONLINE  
+     Погрешность синхронизации: ±0.05
+
+  3. Узел C3 — 150.00°E, 45.67°N  
+     Состояние: ONLINE  
+     Погрешность синхронизации: ±0.02
+
+  4. Узел D9 — 12.34°E, -22.22°S  
+     Состояние: OFFLINE / в восстановлении  
+     Погрешность синхронизации: недоступна
+
+  5. Узел E5 — 9█.██°W, █.██S°  
+     Состояние: OFFLINE / связь потеряна   
+     Погрешность синхронизации: ±50.01
+
+Все узлы связаны квантовой подписью Астраэона. Любое вмешательство  
+или неправильная активация может привести к разрыву синхронизации  
+и местному «сингулярному всплеску». Запись предназначена для  
+доступа только авторизованных архивистов.
+
+    [АРХИВНЫЙ ФРАГМЕНТ ЗАВЕРШЁН]
+`;
+
+    let i = 0;
+    let outputElement = document.getElementById("output");
+    let photosElement = document.getElementById("photos");
+    
+    function typeWriter() {
+      if (i < text.length) {
+        outputElement.innerHTML = text.substring(0, i + 1) + '<span class="cursor">|</span>';
+        i++;
+        setTimeout(typeWriter, 20); 
+      } else {
+        outputElement.innerHTML = text;
+        // Показываем фото после окончания печати
+        photosElement.style.display = "flex";
+      }
+    }
+    
+    function returnToNavigation() {
+      outputElement.innerHTML = '> Возврат к навигационной панели...';
+      setTimeout(() => { 
+        window.location.href = "nav_3.html"; 
+      }, 800);
+    }
+
+    window.onload = function() {
+      setTimeout(typeWriter, 500);
+    };
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        returnToNavigation();
+      }
+    });
+  </script>
+</body>
+</html>
